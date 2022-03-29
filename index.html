@@ -24,19 +24,24 @@
     />
 
     <link rel="stylesheet" href="./style.css" />
-    <title>Work Day Scheduler</title>
+    <title>Weather Dashboard</title>
   </head>
 
-  <!-- Jumbotron header with live EST clock -->
+  
   <body>
     <header class="bg-dark text-white text-center p-2">
       <h1>Weather Dashboard</h1>
     </header>
-
-    <div class="container">
-      
-
+    <div class="container-fluid">
+      <div class="col-12 col-md-3 p-2 bg-secondary">
+        <form>
+          <h4>Search for a city's weather statistics.</h4>
+          <input id="city"/>
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+      </div>
     </div>
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
