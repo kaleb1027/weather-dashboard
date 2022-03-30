@@ -13,10 +13,17 @@
 
 
 var apikey = "50c9e11eea8b4547fcca53e292e4ee18";
+var tempP = document.getElementById("temp");
+var windP = document.getElementById("wind");
+var humidP = document.getElementById("humid");
+var uvP = document.getElementById("uv");
+var cityForm = document.querySelector("form")
+var cityHead = document.querySelector("#cityName")
+var cities = [];
 
-function getWeather() {
+function currentWeather(city) {
     
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=Memphis&appid=" + apikey;
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apikey;
     fetch(queryURL)
     .then(function(response){
         console.log(response);
@@ -24,8 +31,29 @@ function getWeather() {
     })
     .then(function (data) {
         console.log(data);
+        displayWeather(data,city);
     })
     
 }
 
-getWeather();
+function saveCity(){
+    localStorage.setItem("cities", JSON.stringify(cities));
+}
+
+function formSubmitHandler(event){
+    event.preventDefault();
+}
+
+function displayWeather(weather,city){
+    cityHead.textContent = city + ""
+    tempP.textContent = "Temp: " + weather.main.temp + " °F";
+    windP.textContent = "Humidity: " + weather.main.humidity + " %";
+    humidP.textContent = "Wind Speed: " + weather.wind.speed + " MPH";
+    
+}
+
+
+currentWeather("Miami");
+
+
+
