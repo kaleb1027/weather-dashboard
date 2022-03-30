@@ -14,3 +14,18 @@
 
 var apikey = "50c9e11eea8b4547fcca53e292e4ee18";
 
+function getWeather() {
+    
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=Memphis&appid=" + apikey;
+    fetch(queryURL)
+    .then(function(response){
+        console.log(response);
+        return response.json();
+    })
+    .then(function (data) {
+        console.log(data);
+    })
+    
+}
+
+getWeather();
