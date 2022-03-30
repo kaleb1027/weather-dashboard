@@ -19,7 +19,11 @@ var humidP = document.getElementById("humid");
 var uvP = document.getElementById("uv");
 var cityForm = document.querySelector("form")
 var cityHead = document.querySelector("#cityName")
+var headIMG = document.createElement("img")
+var cityInput = document.querySelector("#city");
+var uvNum = document.querySelector("#index");
 var cities = [];
+
 
 function currentWeather(city) {
     
@@ -45,12 +49,38 @@ function formSubmitHandler(event){
 }
 
 function displayWeather(weather,city){
-    cityHead.textContent = city + ""
-    tempP.textContent = "Temp: " + weather.main.temp + " °F";
+
+     
+    //headIMG.setAttribute("src","https://openweathermap.org/img/wn/${weather.weather[0].icon}.png");
+    cityHead.appendChild(headIMG);
+    var weatherConv = Math.floor((weather.main.temp - 273) * (9/5) + 32);
+    cityHead.textContent = city;
+    tempP.textContent = "Temp: " + weatherConv + " °F";
     windP.textContent = "Humidity: " + weather.main.humidity + " %";
     humidP.textContent = "Wind Speed: " + weather.wind.speed + " MPH";
-    
+    var lat = weather.coord.lat;
+    var lon = weather.coord.lon;
+    getUV(lat,lon);
+
 }
+
+
+
+function getUV(lat,lon){
+    var queryURL = "https://api.openweathermap.org/data/2.5/uvi?appid="+ apikey + "&lat="+lat +"&lon="+ lon;
+    fetch(queryURL)
+    .then(function(response){
+        response.json()
+        console.log(response)
+    })
+    .then(function (data){
+        console.log(data);
+    })
+}   
+
+//function displayUV(data){
+ //   uvP.textContent = "UV Index" +  data.value;
+//}
 
 
 currentWeather("Miami");
