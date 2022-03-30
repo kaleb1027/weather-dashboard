@@ -73,7 +73,7 @@ function getUV(lat,lon){
         response.json()
         console.log(response)
     })
-    .then(function (data){
+    .then(function(data){
         console.log(data);
     })
 }   
