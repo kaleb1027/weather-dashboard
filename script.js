@@ -22,6 +22,7 @@ var cityHead = document.querySelector("#cityName")
 var headIMG = document.createElement("img")
 var cityInput = document.querySelector("#city");
 var uvNum = document.querySelector("#index");
+var cityStats = document.querySelector("#cityStats");
 var cities = [];
 
 
@@ -50,9 +51,9 @@ function formSubmitHandler(event){
 
 function displayWeather(weather,city){
 
-     
-    //headIMG.setAttribute("src","https://openweathermap.org/img/wn/${weather.weather[0].icon}.png");
-    cityHead.appendChild(headIMG);
+    var icon = `https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`
+    headIMG.setAttribute("src",icon);
+    cityStats.appendChild(headIMG);
     var weatherConv = Math.floor((weather.main.temp - 273) * (9/5) + 32);
     cityHead.textContent = city;
     tempP.textContent = "Temp: " + weatherConv + " °F";
@@ -60,6 +61,8 @@ function displayWeather(weather,city){
     humidP.textContent = "Wind Speed: " + weather.wind.speed + " MPH";
     var lat = weather.coord.lat;
     var lon = weather.coord.lon;
+    console.log(lat);
+    console.log(lon);
     getUV(lat,lon);
 
 }
@@ -67,23 +70,32 @@ function displayWeather(weather,city){
 
 
 function getUV(lat,lon){
-    var queryURL = "https://api.openweathermap.org/data/2.5/uvi?appid="+ apikey + "&lat="+lat +"&lon="+ lon;
+    //var queryURL = "https://api.openweathermap.org/data/2.5/uvi?appid="+ apikey + "&lat="+lat +"&lon="+ lon;
+    var queryURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,daily&appid=${apikey}`
     fetch(queryURL)
     .then(function(response){
-        response.json()
+       
+        return response.json();
+
         console.log(response)
     })
     .then(function(data){
         console.log(data);
+        console.log(data.current.uvi);
+        displayUV(data.current.uvi)
     })
+    
 }   
 
-//function displayUV(data){
- //   uvP.textContent = "UV Index" +  data.value;
-//}
+function displayUV(data){
+   uvP.textContent = "UV Index: " +  data;
+}
 
 
 currentWeather("Miami");
 
-
+//give the form a function to collect user input, store input in variable to work with API. 
+//find out if openweather gives that forecast in a response
+//use all of my forecast data to append future days to the days
+//work with local storage for search city
 
