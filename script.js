@@ -29,7 +29,7 @@ var cities = [];
 
 function currentWeather(city) {
     
-    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apikey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apikey;
     fetch(queryURL)
     .then(function(response){
         console.log(response);
