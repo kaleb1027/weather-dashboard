@@ -28,10 +28,10 @@ var history = document.querySelector("#history")
 var cities = [];
 
 var f1 = document.querySelector("#future1")
-var f1 = document.querySelector("#future2")
-var f1 = document.querySelector("#future3")
-var f1 = document.querySelector("#future4")
-var f1 = document.querySelector("#future5")
+//var f1 = document.querySelector("#future2")
+//var f1 = document.querySelector("#future3")
+//var f1 = document.querySelector("#future4")
+//var f1 = document.querySelector("#future5")
 
 
 
@@ -51,18 +51,16 @@ search.addEventListener("click", function(){
 })
 
 function currentWeather(city) {
-    
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apikey;
     fetch(queryURL)
     .then(function(response){
-        console.log(response);
+        //console.log(response);
         return response.json();
     })
     .then(function (data) {
-        console.log(data);
+        //console.log(data);
         displayWeather(data,city);
     })
-    
 }
 
 function saveCity(){
@@ -74,33 +72,53 @@ function getCities(){
     if (storedCities !== null){
         cities = storedCities;
     }
+    renderCities();
 }
 function renderCities(){
     history.innerHTML = "";
+    console.log(cities);
     for (i = 0; i <cities.length; i++){
         var cityButton = document.createElement("button");
         cityButton.textContent = cities[i];
         cityButton.setAttribute("data-name",cities[i]);
+        var a = cityButton.textContent;
+        console.log(a)
         
+        $("#history").append(cityButton);
     }
+    $("#history").on("click",handleSaveButtons)
+        
+    
+    
+   // console.log(cities);
+   // console.log(history);
+   // console.log(cityButton);
 }
 
+function handleSaveButtons(event){
+    var savedName = event.target.textContent;
+    currentWeather(savedName);
+}
 
+function weatherConv(temp){
+    return Math.floor((temp - 273) * (9/5) + 32);
+    
+}
 
 function displayWeather(weather,city){
 
     var icon = `http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`
     headIMG.setAttribute("src",icon);
     cityStats.appendChild(headIMG);
-    var weatherConv = Math.floor((weather.main.temp - 273) * (9/5) + 32);
+    
     cityHead.textContent = city + " " + moment().format("MM-DD-YYYY");
-    tempP.textContent = "Temp: " + weatherConv + " °F";
+    tempP.textContent = "Temp: " + weatherConv(weather.main.temp) + " °F";
     windP.textContent = "Humidity: " + weather.main.humidity + " %";
     humidP.textContent = "Wind Speed: " + weather.wind.speed + " MPH";
     var lat = weather.coord.lat;
     var lon = weather.coord.lon;
-    console.log(lat);
-    console.log(lon);
+    //console.log(lat);
+    //console.log(lon);
     secondCall(lat,lon);
 
     
@@ -121,38 +139,42 @@ function secondCall(lat,lon){
         
     })
     .then(function(data){
-        console.log(data);
-        console.log(data.current.uvi);
+        //console.log(data);
+        //console.log(data.current.uvi);
         uvP.textContent = "UV Index: " + data.current.uvi
-       // displaySecondCall(data)
+       displaySecondCall(data)
     })
     
 }   
 
+function displaySecondCall(data){
+    console.log(data);
+    console.log(data.daily[1]);
+    weatherConv(data.daily[1].temp.day);
 
+    
+    for(var i = 1; i < 6; i++){
+        document.querySelector("#future" + i).children[0].textContent = moment().add(i, "days").format("MM-DD-YYYY");
+        document.querySelector("#future" + i).children[1].setAttribute("src",`http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}.png`);
+        document.querySelector("#future" + i).children[2].textContent = "Temp: " + weatherConv(data.daily[i].temp.day);
+        document.querySelector("#future" + i).children[3].textContent = "Wind: " + (data.daily[i].wind_speed) + " MPH";
+        document.querySelector("#future" + i).children[4].textContent = "Humidity: " + (data.daily[i].humidity) + "%";
+    }
+
+}
 
 
 
 
 getCities();
-renderCities();
+//renderCities();
 
 
 
 
 
 
-//make the history
-    //create buttons for everything i search (refer to carol's scripts)
-    //save the cities and buttons
-    //get the cities and render to page
-    //give the buttons functionality to clear the current weather, and put the new city's weather
-    //give the buttons functionality to clear the weather in the next 5 days, and put the new city's future forecasts
-
-//show the weather forecasts for the next five days
-    //show 5 boxes on the page
-    //grab the data needed for the next 5 days
-    //display the data we fetched for the next 5 days
+//for loop for displaySecondCall() (data.daily[i])
 
 
 //write questions for tutor, try to be specific
