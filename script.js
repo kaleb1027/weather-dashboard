@@ -17,15 +17,31 @@ var tempP = document.getElementById("temp");
 var windP = document.getElementById("wind");
 var humidP = document.getElementById("humid");
 var uvP = document.getElementById("uv");
-var cityForm = document.querySelector("form")
+
 var cityHead = document.querySelector("#cityName")
 var headIMG = document.createElement("img")
 var cityInput = document.querySelector("#city");
 var uvNum = document.querySelector("#index");
 var cityStats = document.querySelector("#cityStats");
+var search = document.querySelector("#searchBtn");
+var history = document.querySelector("#history")
 var cities = [];
 
 
+
+
+
+
+search.addEventListener("click", function(){
+    var name = cityInput.value;
+    cityInput.value = '';
+    if(!cities.includes(name)){
+        cities.push(name);
+        saveCity();
+    }
+    
+    currentWeather(name);
+})
 
 function currentWeather(city) {
     
@@ -46,9 +62,23 @@ function saveCity(){
     localStorage.setItem("cities", JSON.stringify(cities));
 }
 
-function formSubmitHandler(event){
-    event.preventDefault();
+function getCities(){
+    var storedCities = JSON.parse(localStorage.getItem("cities"));
+    if (storedCities !== null){
+        cities = storedCities;
+    }
 }
+function renderCities(){
+    history.innerHTML = "";
+    for (i = 0; i <cities.length; i++){
+        var cityButton = document.createElement("button");
+        cityButton.textContent = cities[i];
+        cityButton.setAttribute("data-name",cities[i]);
+        
+    }
+}
+
+
 
 function displayWeather(weather,city){
 
@@ -56,7 +86,7 @@ function displayWeather(weather,city){
     headIMG.setAttribute("src",icon);
     cityStats.appendChild(headIMG);
     var weatherConv = Math.floor((weather.main.temp - 273) * (9/5) + 32);
-    cityHead.textContent = city;
+    cityHead.textContent = city + " " + moment().format("MM-DD-YYYY");
     tempP.textContent = "Temp: " + weatherConv + " °F";
     windP.textContent = "Humidity: " + weather.main.humidity + " %";
     humidP.textContent = "Wind Speed: " + weather.wind.speed + " MPH";
@@ -93,12 +123,13 @@ function displayUV(data){
 }
 
 
-currentWeather("Philadelphia");
+
+getCities();
+renderCities();
 
 
-//make search bar work
-    //collect user input
-    //put that user input in current weather function
+
+
 
 
 //make the history

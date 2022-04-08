@@ -1,66 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
-    
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" 
-    rel="stylesheet"
-    />
 
-    <link rel="stylesheet" href="./style.css" />
-    <title>Weather Dashboard</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
 
-  
-  <body>
-    <header class="bg-dark text-white text-center p-2">
-      <h1>Weather Dashboard</h1>
-    </header>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12 col-md-3 p-2 bg-secondary">
-          <form id="cityForm">
-            <h4>Search for a city's weather statistics.</h4>
-            <input id="city"/>
-            <button class="btn btn-primary" type="submit">Search</button>
-          </form>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./style.css" />
+  <title>Weather Dashboard</title>
+</head>
+
+
+<body>
+  <header class="bg-dark text-white text-center p-2">
+    <h1>Weather Dashboard</h1>
+  </header>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 col-md-3 p-2 bg-secondary">
+        <h4>Search for a city's weather statistics.</h4>
+        <input id="city" />
+        <button class="btn btn-primary" id="searchBtn" type="submit">Search</button>
+        <div class="card-body" id="history">
+
         </div>
-        <div class="col-12 col-md-9">
-          <div class="row">
-            <div class="col-12">
-              <h2 id="cityName"></h2>
-              <div id="cityStats">
+      </div>
 
-                <p id="temp"></p>
-                <p id="wind"></p>
-                <p id="humid"></p>
-                <p id="uv"><span id="index"></span></p>
-              </div>
+
+      <div class="col-12 col-md-9">
+        <div class="row">
+          <div class="col-12">
+            <h2 id="cityName"></h2>
+            <div id="cityStats">
+              <p id="temp"></p>
+              <p id="wind"></p>
+              <p id="humid"></p>
+              <p id="uv"><span id="index"></span></p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
+    <div class="row justify-content-around" id="forecast">
+      <div id="forecast1" class="bg-custom text-white"></div>
+      <div id="forecast2" class="bg-custom text-white"></div>
+      <div id="forecast3" class="bg-custom text-white"></div>
+      <div id="forecast4" class="bg-custom text-white"></div>
+      <div id="forecast5" class="bg-custom text-white"></div>
+    </div>
+  </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="./script.js"></script>
-  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="./script.js"></script>
+</body>
+
 </html>
