@@ -1,17 +1,3 @@
-//GIVEN a weather dashboard with form inputs
-//WHEN I search for a city
-//THEN I am presented with current and future conditions for that city and that city is added to the search history
-//WHEN I view current weather conditions for that city
-//THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-//WHEN I view the UV index
-//THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-//WHEN I view future weather conditions for that city
-//THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-//WHEN I click on a city in the search history
-//THEN I am again presented with current and future conditions for that city
-
-
-
 var apikey = "50c9e11eea8b4547fcca53e292e4ee18";
 var tempP = document.getElementById("temp");
 var windP = document.getElementById("wind");
@@ -27,11 +13,6 @@ var search = document.querySelector("#searchBtn");
 var history = document.querySelector("#history")
 var cities = [];
 
-var f1 = document.querySelector("#future1")
-//var f1 = document.querySelector("#future2")
-//var f1 = document.querySelector("#future3")
-//var f1 = document.querySelector("#future4")
-//var f1 = document.querySelector("#future5")
 
 
 
@@ -54,11 +35,11 @@ function currentWeather(city) {
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apikey;
     fetch(queryURL)
     .then(function(response){
-        //console.log(response);
+      
         return response.json();
     })
     .then(function (data) {
-        //console.log(data);
+       
         displayWeather(data,city);
     })
 }
@@ -82,7 +63,7 @@ function renderCities(){
         cityButton.textContent = cities[i];
         cityButton.setAttribute("data-name",cities[i]);
         var a = cityButton.textContent;
-        console.log(a)
+        console.log(a);
         
         $("#history").append(cityButton);
     }
@@ -90,9 +71,7 @@ function renderCities(){
         
     
     
-   // console.log(cities);
-   // console.log(history);
-   // console.log(cityButton);
+ 
 }
 
 function handleSaveButtons(event){
@@ -107,7 +86,7 @@ function weatherConv(temp){
 
 function displayWeather(weather,city){
 
-    var icon = `http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`
+    var icon = `https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`
     headIMG.setAttribute("src",icon);
     cityStats.appendChild(headIMG);
     
@@ -117,8 +96,7 @@ function displayWeather(weather,city){
     humidP.textContent = "Wind Speed: " + weather.wind.speed + " MPH";
     var lat = weather.coord.lat;
     var lon = weather.coord.lon;
-    //console.log(lat);
-    //console.log(lon);
+    
     secondCall(lat,lon);
 
     
@@ -130,7 +108,7 @@ function displayWeather(weather,city){
 
 function secondCall(lat,lon){
     
-    var queryURL = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&appid=${apikey}`
+    var queryURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&appid=${apikey}`
     fetch(queryURL)
     .then(function(response){
        
@@ -139,8 +117,7 @@ function secondCall(lat,lon){
         
     })
     .then(function(data){
-        //console.log(data);
-        //console.log(data.current.uvi);
+       
         if (data.current.uvi <= 2){
             uvNum.setAttribute("class","low")
         }
@@ -160,10 +137,6 @@ function secondCall(lat,lon){
 }   
 
 function displaySecondCall(data){
-    console.log(data);
-    console.log(data.daily[1]);
-    weatherConv(data.daily[1].temp.day);
-
     
     for(var i = 1; i < 6; i++){
         document.querySelector("#future" + i).children[0].textContent = moment().add(i, "days").format("MM-DD-YYYY");
@@ -179,14 +152,10 @@ function displaySecondCall(data){
 
 
 getCities();
-//renderCities();
 
 
 
 
 
 
-//for loop for displaySecondCall() (data.daily[i])
 
-
-//write questions for tutor, try to be specific
