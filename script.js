@@ -27,6 +27,13 @@ var search = document.querySelector("#searchBtn");
 var history = document.querySelector("#history")
 var cities = [];
 
+var f1 = document.querySelector("#future1")
+var f1 = document.querySelector("#future2")
+var f1 = document.querySelector("#future3")
+var f1 = document.querySelector("#future4")
+var f1 = document.querySelector("#future5")
+
+
 
 
 
@@ -94,15 +101,18 @@ function displayWeather(weather,city){
     var lon = weather.coord.lon;
     console.log(lat);
     console.log(lon);
-    getUV(lat,lon);
+    secondCall(lat,lon);
 
+    
+
+    
 }
 
 
 
-function getUV(lat,lon){
+function secondCall(lat,lon){
     
-    var queryURL = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,daily&appid=${apikey}`
+    var queryURL = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly&appid=${apikey}`
     fetch(queryURL)
     .then(function(response){
        
@@ -113,14 +123,14 @@ function getUV(lat,lon){
     .then(function(data){
         console.log(data);
         console.log(data.current.uvi);
-        displayUV(data.current.uvi)
+        uvP.textContent = "UV Index: " + data.current.uvi
+       // displaySecondCall(data)
     })
     
 }   
 
-function displayUV(data){
-   uvP.textContent = "UV Index: " +  data;
-}
+
+
 
 
 
