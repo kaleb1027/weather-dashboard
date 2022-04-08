@@ -26,9 +26,10 @@ var cityStats = document.querySelector("#cityStats");
 var cities = [];
 
 
+
 function currentWeather(city) {
     
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apikey;
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apikey;
     fetch(queryURL)
     .then(function(response){
         console.log(response);
@@ -51,7 +52,7 @@ function formSubmitHandler(event){
 
 function displayWeather(weather,city){
 
-    var icon = `https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`
+    var icon = `http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`
     headIMG.setAttribute("src",icon);
     cityStats.appendChild(headIMG);
     var weatherConv = Math.floor((weather.main.temp - 273) * (9/5) + 32);
@@ -70,14 +71,14 @@ function displayWeather(weather,city){
 
 
 function getUV(lat,lon){
-    //var queryURL = "https://api.openweathermap.org/data/2.5/uvi?appid="+ apikey + "&lat="+lat +"&lon="+ lon;
-    var queryURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,daily&appid=${apikey}`
+    
+    var queryURL = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,daily&appid=${apikey}`
     fetch(queryURL)
     .then(function(response){
        
         return response.json();
 
-        console.log(response)
+        
     })
     .then(function(data){
         console.log(data);
@@ -92,10 +93,25 @@ function displayUV(data){
 }
 
 
-currentWeather("Miami");
+currentWeather("Philadelphia");
 
-//give the form a function to collect user input, store input in variable to work with API. 
-//find out if openweather gives that forecast in a response
-//use all of my forecast data to append future days to the days
-//work with local storage for search city
 
+//make search bar work
+    //collect user input
+    //put that user input in current weather function
+
+
+//make the history
+    //create buttons for everything i search (refer to carol's scripts)
+    //save the cities and buttons
+    //get the cities and render to page
+    //give the buttons functionality to clear the current weather, and put the new city's weather
+    //give the buttons functionality to clear the weather in the next 5 days, and put the new city's future forecasts
+
+//show the weather forecasts for the next five days
+    //show 5 boxes on the page
+    //grab the data needed for the next 5 days
+    //display the data we fetched for the next 5 days
+
+
+//write questions for tutor, try to be specific
