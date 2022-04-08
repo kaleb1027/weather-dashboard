@@ -21,7 +21,7 @@ var uvP = document.getElementById("uv");
 var cityHead = document.querySelector("#cityName")
 var headIMG = document.createElement("img")
 var cityInput = document.querySelector("#city");
-var uvNum = document.querySelector("#index");
+var uvNum = document.createElement("span");
 var cityStats = document.querySelector("#cityStats");
 var search = document.querySelector("#searchBtn");
 var history = document.querySelector("#history")
@@ -141,7 +141,19 @@ function secondCall(lat,lon){
     .then(function(data){
         //console.log(data);
         //console.log(data.current.uvi);
-        uvP.textContent = "UV Index: " + data.current.uvi
+        if (data.current.uvi <= 2){
+            uvNum.setAttribute("class","low")
+        }
+        else if(data.current.uvi > 5){
+            uvNum.setAttribute("class","high")
+        }
+        else{
+            uvNum.setAttribute("class","moderate")
+        }
+        uvP.textContent = "UV Index: "
+        uvNum.textContent = data.current.uvi;
+        uvP.append(uvNum);
+        
        displaySecondCall(data)
     })
     
