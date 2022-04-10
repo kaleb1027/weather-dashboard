@@ -32,7 +32,7 @@ search.addEventListener("click", function(){
 })
 
 function currentWeather(city) {
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apikey;
+    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apikey;
     fetch(queryURL)
     .then(function(response){
       
@@ -86,12 +86,12 @@ function weatherConv(temp){
 
 function displayWeather(weather,city){
 
-    var icon = `https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`
+    var icon = `http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`
     headIMG.setAttribute("src",icon);
     cityStats.appendChild(headIMG);
     
     cityHead.textContent = city + " " + moment().format("MM-DD-YYYY");
-    tempP.textContent = "Temp: " + weatherConv(weather.main.temp) + " °F";
+    tempP.textContent = "Temp: " + weatherConv(weather.main.temp) + "°F";
     windP.textContent = "Humidity: " + weather.main.humidity + " %";
     humidP.textContent = "Wind Speed: " + weather.wind.speed + " MPH";
     var lat = weather.coord.lat;
@@ -140,8 +140,8 @@ function displaySecondCall(data){
     
     for(var i = 1; i < 6; i++){
         document.querySelector("#future" + i).children[0].textContent = moment().add(i, "days").format("MM-DD-YYYY");
-        document.querySelector("#future" + i).children[1].setAttribute("src",`http://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}.png`);
-        document.querySelector("#future" + i).children[2].textContent = "Temp: " + weatherConv(data.daily[i].temp.day);
+        document.querySelector("#future" + i).children[1].setAttribute("src",`https://openweathermap.org/img/wn/${data.daily[i].weather[0].icon}.png`);
+        document.querySelector("#future" + i).children[2].textContent = "Temp: " + weatherConv(data.daily[i].temp.day) + "°F";
         document.querySelector("#future" + i).children[3].textContent = "Wind: " + (data.daily[i].wind_speed) + " MPH";
         document.querySelector("#future" + i).children[4].textContent = "Humidity: " + (data.daily[i].humidity) + "%";
     }
